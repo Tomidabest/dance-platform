@@ -1,0 +1,239 @@
+:root {
+    --black_900: #000000;
+    --blue_800: #2770b4;
+    --blue_gray_900: #333333;
+    --gray_100: #fbf5f1;
+    --gray_700: #695246;
+    --gray_900: #06133a;
+    --purple_100: #e8bef3;
+    --purple_50: #f8e1ff;
+    --white_a700: #ffffff;
+    --radius-xs: 8px;
+    --radius-md: 18px;
+    --radius-lg: 32px;
+    --space-sm: 18px;
+    --space-md: 22px;
+    --space-lg: 28px;
+    --space-xl: 52px;
+}
+
+/* General Body Styling */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.featured-dance {
+    height: 788px;
+    background-color: var(--black_900);
+    box-shadow: var(--shadow-xs);
+    width: 100%;
+    position: relative;
+}
+
+/* Featured Dance Section */
+.featured-dance__content {
+    margin-top: 10%;
+    margin-left: 50%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-right: 40px;
+    position: absolute;
+    display: flex;
+    width: 40%;
+    flex-direction: column;
+    align-items: center;
+    border-radius: var(--radius-sm);
+    z-index: 1;
+    background-color: var(--purple_100);
+}
+
+.featured-dance .conteiner{
+    margin-bottom: 20px;
+    margin-left: 60px;
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.featured-dance__title {
+    color: var(--gray_800);
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: -5px;
+}
+
+.featured-dance__description {
+    color: var(--blue_gray_900);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 5%;
+}
+
+.featured-dance__button {
+    background-color: var(--blue_800);
+    color: var(--white_a700);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: var(--radius-lg);
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.featured-dance__image{
+    position: absolute;
+    margin-left: -10%;
+    width: 1200px;
+    height: 800px;
+    top: 0px;
+    left: 0px;
+    size: 2000px;
+}
+
+.featured-dance__image .conteiner{
+    z-index: 2;
+}
+
+.featured-dance__button:hover {
+    background-color: var(--gray_700);
+}
+
+/* Search and Register Section */
+.search-register {
+    margin-top: 0;
+    gap: 70px;
+    position: relative;
+    background-color: var(--purple_50);
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    padding: var(--space-xl);
+
+    align-items: center;
+    padding: var(--space-lg);
+    margin-top: -50px;
+    text-align: center;
+    gap: var(--space-md);
+}
+
+.search-register__form {
+    margin-top: -80px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    position: relative;
+    background-color: var(--purple_100);
+    box-shadow: var(--shadow-sm);
+    align-self: stretch;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    max-width: 1070px;
+    width: 100%;
+    padding: 50px 30px;
+    border-radius: var(--radius-md);
+}
+
+.search-register__form form{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.search-register__input {
+    margin: 0;
+    display: inline-block;
+    height: 40px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 14px;
+    flex: 1;
+    max-width: 200px;
+}
+
+.search-register__button {
+    background-color: var(--blue_800);
+    color: var(--white_a700);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 18px 30px;
+    margin-left: 10%;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-register__button:hover {
+    background-color: var(--gray_700);
+}
+
+.search-register__prompt {
+    margin-top: 76px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    width: 40%;
+    line-height: 39px;
+}
+
+.search-register__register-button {
+    background-color: var(--blue_800);
+    color: var(--white_a700);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: var(--radius-lg);
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.search-register__register-button:hover {
+    background-color: var(--gray_700);
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 768px) {
+    .featured-dance,
+    .search-register {
+        padding: var(--space-sm);
+    }
+
+    .featured-dance__content{
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-left: 0px;
+    }
+
+    .search-register__form {
+        flex-direction: column;
+    }
+
+    .search-register__input,
+    .search-register__button,
+    .search-register__register-button {
+        width: 100%;
+        max-width: none;
+    }
+
+    .featured-dance__title {
+        font-size: 38px;
+    }
+
+    .search-register__prompt {
+        font-size: 28px;
+    }
+}
