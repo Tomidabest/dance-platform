@@ -16,6 +16,7 @@ class Classes extends Model
         'studios_id', 
         'instructors_id', 
         'description', 
+        'availability',
         'time_start', 
         'time_end', 
         'price'
