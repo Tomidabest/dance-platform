@@ -1,5 +1,9 @@
 <x-layout>
     <div class="single_view">
+        <img 
+        src="{{$studio->firstImage() ? asset('storage/' . $studio->firstImage()) : asset('storage/images/studios/placeholder.jpg')}}"
+        alt="{{ $studio->name }}" 
+        style="width:500px; height:auto;">
         <h1> Studio {{$studio->name}} </h1>
         <h2> Location: {{$studio->address}} </h2>
         <h2> Phone: {{$studio->phone}} </h2>

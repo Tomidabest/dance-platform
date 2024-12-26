@@ -11,7 +11,7 @@
     <div class="featured-dance">
         <div class="conteiner">
 
-            <img src="{{ asset('images/landing_img.jpg') }}" alt="Graceful Image" class="featured-dance__image" />
+            <img src="{{ asset('storage/images/landing_img.jpg') }}" alt="Graceful Image" class="featured-dance__image" />
 
         </div>
         <div class="featured-dance__content">
