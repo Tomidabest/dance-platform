@@ -1,9 +1,17 @@
 <x-layout>
     <!-- Featured Dance Section -->
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
     <div class="featured-dance">
         <div class="conteiner">
 
-            <img src="{{ asset('images/landing_img.jpg') }}" alt="Graceful Image" class="featured-dance__image" />
+            <img src="{{ asset('storage/images/landing_img.jpg') }}" alt="Graceful Image" class="featured-dance__image" />
 
         </div>
         <div class="featured-dance__content">

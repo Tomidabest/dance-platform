@@ -1,5 +1,9 @@
 <x-layout>
     <div class="single_view">
+        <img 
+        src="{{$studio->firstImage() ? asset('storage/' . $studio->firstImage()) : asset('storage/images/studios/placeholder.jpg')}}"
+        alt="{{ $studio->name }}" 
+        style="width:500px; height:auto;">
         <h1> Studio {{$studio->name}} </h1>
         <h2> Location: {{$studio->address}} </h2>
         <h2> Phone: {{$studio->phone}} </h2>
@@ -23,6 +27,14 @@
                 <li> Price: {{$class->price}} lv </li>
                 <li> Start: {{$class->time_start}} </li>
                 <li> End: {{$class->time_ends}} </li>
+                <li> Availability: {{$class->availability}} </li>
+
+                @if($class->availability > 0)
+                    <form action="{{route('class.book', $class->id)}}" method='POST'>
+                        @csrf
+                        <button class="search-register__button" type='submit'>Book</button>
+                    </form> 
+                @endif
             @endforeach
         </ul>
     </div>

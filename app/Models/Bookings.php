@@ -12,14 +12,14 @@ class Bookings extends Model
 
     protected $fillable = [
         'classes_id',
-        'user_id', 
+        'users_id', 
         'date', 
         'status'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'users_id');
     }
 
     public function classes()
