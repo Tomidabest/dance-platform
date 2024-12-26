@@ -18,7 +18,7 @@ class Classes extends Model
         'description', 
         'availability',
         'time_start', 
-        'time_end', 
+        'time_ends', 
         'price'
     ];
 

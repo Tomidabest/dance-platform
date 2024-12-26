@@ -23,7 +23,6 @@ return new class extends Migration
                 $table->decimal('price', 8, 2);
                 $table->unsignedBigInteger('studios_id');
                 $table->unsignedBigInteger('instructors_id');
-                $table->integer('availability');
     
                 // Add foreign keys if needed
                 $table->foreign('studios_id')->references('id')->on('studios')->onDelete('cascade');

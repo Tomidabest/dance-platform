@@ -37,7 +37,7 @@ class StudioController extends Controller
         echo $timeAvailability;
         echo $currTime;
         
-        if($timeAvailability > $currTime)
+        if($timeAvailability > $currTime || $class->availability > 0)
         {
             $booking = new Bookings();
             $booking->classes_id = $class->id;
@@ -46,6 +46,7 @@ class StudioController extends Controller
             $booking->status = 'confirmed';
             $booking->save();
 
+            $class->availability -= 1;
             $class->save();
 
             return redirect()->route('landing')->with('success', 'Booking confirmed!');

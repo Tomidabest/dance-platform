@@ -27,11 +27,14 @@
                 <li> Price: {{$class->price}} lv </li>
                 <li> Start: {{$class->time_start}} </li>
                 <li> End: {{$class->time_ends}} </li>
+                <li> Availability: {{$class->availability}} </li>
 
-                <form action="{{route('class.book', $class->id)}}" method='POST'>
-                    @csrf
-                    <button class="search-register__button" type='submit'>Book</button>
-                </form> 
+                @if($class->availability > 0)
+                    <form action="{{route('class.book', $class->id)}}" method='POST'>
+                        @csrf
+                        <button class="search-register__button" type='submit'>Book</button>
+                    </form> 
+                @endif
             @endforeach
         </ul>
     </div>
