@@ -10,6 +10,7 @@ Route::get('/', [LeadPageController::class, 'index'])->name('landing');
 
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');

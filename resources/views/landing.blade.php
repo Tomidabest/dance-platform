@@ -36,6 +36,6 @@
         <h2 class="search-register__prompt">
             Want to become a member of DanceIgnite? Register now!
         </h2>
-        <button class="search-register__register-button">Register</button>
+        <button class="search-register__register-button" type="submit" action="{{route('register')}}">Register</button>
     </div>
 </x-layout>
