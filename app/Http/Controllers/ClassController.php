@@ -106,12 +106,18 @@ class ClassController extends Controller
     public function toggleStatus(Classes $class)
     {
         if ($class->studios_id !== auth()->user()->studio_id) {
-            abort(403, 'Unauthorized');
+            return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
         }
-
-        $class->update(['is_active' => !$class->is_active]);
-
-        return back()->with('success', 'Class status updated.');
+    
+        // Toggle status and save
+        $class->is_active = !$class->is_active;
+        $class->save();
+    
+        return response()->json([
+            'success' => true,
+            'is_active' => $class->is_active,
+            'message' => 'Class status updated successfully.'
+        ]);
     }
 
     public function assignInstructor(Request $request, Classes $class)

@@ -65,7 +65,7 @@ Route::group(['middleware' => 'admin'], function ()
 
         Route::delete('/{class}/delete', [ClassController::class, 'destroy'])->name('class.delete');
 
-        Route::post('/{class}/toggle', [ClassController::class, 'toggleStatus'])->name('class.toggle');
+        Route::patch('/{class}/toggle', [ClassController::class, 'toggleStatus'])->name('class.toggle');
 
         Route::post('/{class}/assign-instructor', [ClassController::class, 'assignInstructor'])->name('class.assignInstructor');
 

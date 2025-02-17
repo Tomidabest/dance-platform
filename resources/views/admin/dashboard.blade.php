@@ -55,67 +55,44 @@
 
 @endsection
 
-@push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const toggleSwitches = document.querySelectorAll('.status-toggle');
-    
+
     toggleSwitches.forEach(toggle => {
-        toggle.addEventListener('change', async function() {
+        toggle.addEventListener('change', async function () {
             const classId = this.dataset.classId;
             const card = this.closest('.class-card');
-            
+            const isChecked = this.checked;
+
             try {
                 const response = await fetch(`/class/${classId}/toggle`, {
-                    method: 'POST',
+                    method: 'PATCH',  // Ensure it's PATCH to match Laravel
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                         'Accept': 'application/json'
-                    }
+                    },
+                    body: JSON.stringify({ is_active: isChecked }) // Send status explicitly
                 });
 
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error(`Request failed with status ${response.status}`);
                 }
 
                 const data = await response.json();
-                
-                this.checked = data.is_active;
-                card.classList.toggle('active', data.is_active);
-                card.classList.toggle('inactive', !data.is_active);
 
-                const successMessage = document.createElement('div');
-                successMessage.className = 'success-message';
-                successMessage.innerHTML = `
-                    <i class="fas fa-check-circle"></i>
-                    ${data.message}
-                `;
-                card.insertBefore(successMessage, card.firstChild);
-
-                setTimeout(() => {
-                    successMessage.remove();
-                }, 3000);
-
+                if (data.success) {
+                    card.classList.toggle('active', data.is_active);
+                    card.classList.toggle('inactive', !data.is_active);
+                } else {
+                    throw new Error('Class update failed');
+                }
             } catch (error) {
                 console.error('Error:', error);
-                
-                this.checked = !this.checked;
-                
-                const errorMessage = document.createElement('div');
-                errorMessage.className = 'error-message';
-                errorMessage.innerHTML = `
-                    <i class="fas fa-exclamation-circle"></i>
-                    Failed to update class status
-                `;
-                card.insertBefore(errorMessage, card.firstChild);
-
-                setTimeout(() => {
-                    errorMessage.remove();
-                }, 3000);
+                this.checked = !isChecked; // Revert checkbox if the request fails
             }
         });
     });
 });
 </script>
-@endpush
