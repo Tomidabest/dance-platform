@@ -30,10 +30,9 @@ class SearchController extends Controller
             });
         }
 
-        $studios = $query->get();
-        if(empty($date) && empty($genre) && empty($location))
-        {
-            $studios = '';
+        $studios = $query->paginate(1);
+        if (empty($date) && empty($genre) && empty($location)) {
+            $studios = collect();
         }
         return view('search_results', compact('studios'));
     }

@@ -19,7 +19,8 @@ class Classes extends Model
         'availability',
         'time_start', 
         'time_ends', 
-        'price'
+        'price',
+        'is_active'
     ];
 
     public function studio()
@@ -34,6 +35,6 @@ class Classes extends Model
 
     public function bookings()
     {
-        return $this->hasMany(Booking::class, 'classes_id');
+        return $this->hasMany(Bookings::class, 'classes_id');
     }
 }

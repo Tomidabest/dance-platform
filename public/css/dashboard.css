@@ -1,0 +1,273 @@
+body{
+    background: linear-gradient(180deg, var(--purple_50) 0%, var(--white_a700) 70%);
+}
+
+/* Main Layout */
+.dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem var(--space-lg);
+}
+
+.dashboard-title {
+    color: var(--blue_800);
+    font-size: 2.5rem;
+    margin-bottom: var(--space-xl);
+    position: relative;
+    padding-bottom: var(--space-sm);
+}
+
+.dashboard-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue_800), var(--purple_50));
+    border-radius: var(--radius-full);
+}
+
+/* Classes Grid */
+.classes-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    width: 100%;
+}
+
+/* Class Card */
+.class-card-admin {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: var(--space-xl);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1), 
+                0 5px 15px -3px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--purple_50);
+    transition: all 0.3s ease;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-lg);
+}
+
+.class-card-admin:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* Class Info */
+.class-name {
+    color: var(--blue_800);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    letter-spacing: -0.5px;
+}
+
+.class-genre {
+    color: var(--purple_800);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: var(--space-sm);
+}
+
+.class-description {
+    color: var(--gray_700);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: var(--space-md) 0;
+}
+
+.class-instructor {
+    color: var(--gray_800);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 160px;
+    height: 45px; /* Increased height to match other buttons */
+    margin: 0 var(--space-sm);
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--purple_50);
+    transition: all 0.3s ease-in-out;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 35px;
+    width: 35px;
+    left: 5px;
+    background-color: var(--white_a700);
+    transition: .4s;
+    border-radius: var(--radius-sm);
+}
+
+.toggle-slider:after {
+    content: 'INACTIVE';
+    color: var(--gray_800);
+    margin-left: auto;
+    font-size: 0.9rem;
+    font-weight: 700;
+    z-index: 1;
+}
+
+input:checked + .toggle-slider {
+    background-color: var(--gray_800);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(115px);
+}
+
+input:checked + .toggle-slider:after {
+    content: 'ACTIVE';
+    color: var(--purple_50);
+    margin-right: auto;
+    margin-left: 0;
+}
+
+/* Hover effects for toggle */
+.toggle-switch:hover .toggle-slider {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.toggle-switch:active .toggle-slider {
+    transform: translateY(2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Action Buttons */
+.class-actions {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+    margin-top: var(--space-md);
+}
+
+/* Common Button Styles */
+.action-button {
+    background: linear-gradient(135deg, var(--blue_800), var(--gray_900));
+    color: var(--white_a700);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    padding: var(--space-sm) var(--space-lg);
+    font-weight: 700;
+}
+
+.action-button:hover {
+    background: linear-gradient(135deg, var(--gray_900), var(--blue_800));
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.action-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Create Class Button */
+.create-class-button {
+    background: linear-gradient(135deg, var(--blue_800), var(--gray_900));
+    margin-bottom: var(--space-xl);
+}
+
+/* View Bookings Button */
+.view-bookings-button {
+    background: linear-gradient(135deg, var(--blue_800), var(--gray_900));
+}
+
+/* Edit Button */
+.edit-class-button {
+    background:linear-gradient(135deg, var(--blue_800), var(--gray_900)) ;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: var(--space-md);
+    }
+
+    .dashboard-title {
+        font-size: 2rem;
+    }
+
+    .class-card {
+        grid-template-columns: 1fr;
+    }
+
+    .class-actions {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: var(--space-xs);
+    }
+
+    .toggle-switch {
+        width: 160px;
+    }
+
+    input:checked + .toggle-slider:before {
+        transform: translateX(120px);
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-container {
+        padding: var(--space-sm);
+    }
+
+    .class-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .action-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .toggle-switch {
+        width: 140px;
+    }
+
+    input:checked + .toggle-slider:before {
+        transform: translateX(100px);
+    }
+}

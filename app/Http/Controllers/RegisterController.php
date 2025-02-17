@@ -14,7 +14,6 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all());
 
         $validated = $request->validate(
             [
@@ -22,7 +21,8 @@ class RegisterController extends Controller
                 'last_name' => 'required|string|max:255|',
                 'username' => 'required|string|max:255|regex:/^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9.]+$/|unique:users,username',
                 'email' => 'required|email|max:255|unique:users,email',
-                'password' => 'required|string|min:8|confirmed'
+                'password' => 'required|string|min:8|confirmed',
+                'role' => 'required|in:user,admin'
             ],
             [
                 'first_name.required' => 'The first name is required.',
@@ -57,7 +57,8 @@ class RegisterController extends Controller
                 'last_name' => $validated['last_name'],
                 'username' => $validated['username'],
                 'email' => $validated['email'],
-                'password' => bcrypt($validated['password'])
+                'password' => bcrypt($validated['password']),
+                'role' => $validated['role']
             ]
         );
 

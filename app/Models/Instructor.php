@@ -14,7 +14,9 @@ class Instructor extends Model
         'experience', 
         'dance_expertise', 
         'users_id', 
-        'studios_id'
+        'studios_id',
+        'description',
+        'image'
     ];
 
     public function user()

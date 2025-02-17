@@ -1,21 +1,26 @@
-<x-layout>
+@extends('components.layout')
+
+@section('content')
     <div class="results">
-        <?php if (empty($studios)) : ?>
+        @if (count($studios) === 0)
             <p>No results found.</p>
-        <?php else : ?>
-            <?php foreach ($studios as $studio) : ?>
+        @else
+            @foreach ($studios as $studio)
                 <div class="studio">
                     <h2>
-                        <a href="{{route('studios.single', $studio->id)}}"><?php echo htmlspecialchars($studio['name']); ?></a>
+                        <a href="{{ route('studios.single', $studio->id) }}">{{ $studio->name }}</a>
                     </h2>
-                    <p><?php echo htmlspecialchars($studio['address']); ?></p>
-                    <p>Genres: 
-                        <?php foreach ($studio['classes'] as $class) : ?>
-                            <?php echo htmlspecialchars($class['genre']); ?>
-                        <?php endforeach; ?>
+                    <p>{{ $studio->address }}</p>
+                    <p>Genres:
+                        @foreach ($studio->classes as $class)
+                            {{ $class->genre }}
+                        @endforeach
                     </p>
                 </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+            @endforeach
+            <div class="pagination">
+                {{ $studios->links() }}
+            </div>
+        @endif
     </div>
-</x-layout>
+@endsection

@@ -15,7 +15,10 @@ class Studio extends Model
         'address', 
         'phone', 
         'email', 
-        'description'
+        'description',
+        'latitude',
+        'longitude',
+        'city'
     ];
 
     public function classes()
@@ -33,8 +36,23 @@ class Studio extends Model
         return $this->hasMany(Image::class, 'studios_id');
     }
 
+    public function admin()
+    {
+        return $this->hasOne(User::class, 'studios_id');
+    }
+
     public function firstImage()
     {
-        return $this->images()->first() ? $this->images()->first()->img_path : null;
+        return $this->images()->first()?->img_path ?? 'images/studios/placeholder.jpg';
+    }
+
+    public function scopeNearby($query, $latitude, $longitude, $radius = 50)
+    {
+        return $query->selectRaw("*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) 
+            * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) 
+            * sin( radians( latitude ) ) ) ) AS distance", 
+            [$latitude, $longitude, $latitude])
+            ->having('distance', '<', $radius)
+            ->orderBy('distance', 'asc');
     }
 }
