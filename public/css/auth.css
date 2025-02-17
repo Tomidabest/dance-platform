@@ -1,0 +1,190 @@
+/* Page Background */
+.auth-background {
+    background: linear-gradient(180deg, var(--purple_50) 20%, var(--white_a700) 70%);
+    min-height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Centering Auth Container */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: var(--space-lg);
+}
+
+/* Form Box */
+.auth-box {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: var(--space-xl);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1), 
+                0 5px 15px -3px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Form Title */
+.auth-box h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--blue_800);
+    margin-bottom: var(--space-md);
+    position: relative; /* Added for ::after positioning */
+    padding-bottom: var(--space-sm); /* Space for the underline */
+}
+
+.auth-box h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%; /* Center the line */
+    transform: translateX(-50%); /* Center the line */
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue_800), var(--purple_50));
+    border-radius: var(--radius-full);
+}
+
+/* Form Container */
+.auth-box form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Input Fields */
+.auth-input {
+    width: 100%;
+    max-width: 400px;
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-md);
+    border: 2px solid var(--blue_800);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    color: var(--gray_900);
+    transition: all 0.3s ease;
+    outline: none;
+    text-align: center;
+}
+
+.auth-input:focus {
+    border-color: var(--purple_800);
+    background: white;
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(var(--purple_800_rgb), 0.1);
+}
+
+.auth-input:hover {
+    border-color: var(--purple_800);
+}
+
+/* Labels */
+.auth-box label {
+    display: block;
+    text-align: left;
+    margin-bottom: var(--space-xs);
+    color: var(--blue_800);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: var(--space-md);
+}
+
+/* Select Field */
+.auth-select {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-md);
+    border: 2px solid var(--blue_800);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    color: var(--gray_900);
+    transition: all 0.3s ease;
+    outline: none;
+    cursor: pointer;
+    appearance: none; /* Removes default arrow */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+
+.auth-select:focus {
+    border-color: var(--purple_800);
+    background-color: white;
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(var(--purple_800_rgb), 0.1);
+}
+
+.auth-select:hover {
+    border-color: var(--purple_800);
+}
+
+/* Buttons */
+.auth-button {
+    width: 100%;
+    padding: var(--space-sm);
+    background: var(--blue_800);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: var(--space-md);
+}
+
+.auth-button:hover {
+    background: var(--gray_800);
+    transform: scale(1.05);
+}
+
+/* Error Messages */
+.auth-error {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: var(--space-sm);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+    .auth-box {
+        padding: var(--space-lg);
+    }
+
+    .auth-input, 
+    .auth-button, 
+    .auth-select {
+        font-size: 0.9rem;
+    }
+
+    .auth-box label {
+        font-size: 0.9rem;
+    }
+}

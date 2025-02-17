@@ -5,11 +5,28 @@ use App\Http\Controllers\LeadPageController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StudioController;
+use App\Http\Controllers\LogInController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ClassController;
 
 Route::get('/', [LeadPageController::class, 'index'])->name('landing');
 
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
+
+Route::get('/login', [LogInController::class, 'index'])->name('login');
+Route::post('/login', [LogInController::class, 'login'])->name('login.auth');
+Route::get('/logout', [LogInController::class, 'logout'])->name('login.out');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+});
 
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
@@ -17,8 +34,44 @@ Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 Route::get('/studios', [StudioController::class, 'index'])->name('studios.all');
 
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/studios/create', [StudioController::class, 'create'])->name('studios.create');
+    Route::post('/studios/store', [StudioController::class, 'store'])->name('studios.store');
+    Route::get('/studios/{studio}/edit', [StudioController::class, 'edit'])->name('studios.edit');
+    Route::put('/studios/{studio}', [StudioController::class, 'update'])->name('studios.update');
+});
 
 Route::get('/studios/{studio}', [StudioController::class, 'single'])->name('studios.single');
 
 
 Route::post('/classes/{class}/book', [StudioController::class, 'book'])->name('class.book');
+
+Route::get('/instructors/{id}', [InstructorController::class, 'show'])->name('instructors.show');
+
+
+Route::group(['middleware' => 'admin'], function ()
+{
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    Route::prefix('/class')->group(function () {
+        
+        Route::get('/{class}/bookings', [ClassController::class, 'showBookings'])->name('class.bookings');
+
+        Route::get('/create', [ClassController::class, 'create'])->name('class.create');
+        Route::post('/store', [ClassController::class, 'store'])->name('class.store');
+
+        Route::get('/{class}/edit', [ClassController::class, 'edit'])->name('class.edit');
+        Route::put('/{class}/update', [ClassController::class, 'update'])->name('class.update');
+
+        Route::delete('/{class}/delete', [ClassController::class, 'destroy'])->name('class.delete');
+
+        Route::post('/{class}/toggle', [ClassController::class, 'toggleStatus'])->name('class.toggle');
+
+        Route::post('/{class}/assign-instructor', [ClassController::class, 'assignInstructor'])->name('class.assignInstructor');
+
+        Route::delete('/class/booking/{booking}', [ClassController::class, 'destroyBooking'])
+        ->name('booking.destroy')
+        ->middleware(['auth']);
+    });
+
+});
