@@ -46,6 +46,7 @@
                 <select name="role" id="role" class="auth-select" required>
                     <option value="user">Dancer</option>
                     <option value="admin">Studio Owner</option>
+                    <option value="instructor">Instructor</option>
                 </select>
             </div>
 

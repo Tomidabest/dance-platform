@@ -7,7 +7,7 @@
         <div class="instructor-profile">
             <div class="profile-image-container fade-in">
                 <img 
-                    src="{{ $instructor->profile_image ? asset('storage/' . $instructor->profile_image) : asset('storage/images/studios/placeholder.jpg') }}" 
+                    src="{{ $instructor->user->image ? asset($instructor->user->image) : asset('storage/images/studios/placeholder.jpg') }}" 
                     alt="{{ $instructor->user->first_name }}" 
                 >
             </div>

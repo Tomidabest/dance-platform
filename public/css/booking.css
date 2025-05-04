@@ -1,11 +1,9 @@
-/* Main Layout */
 .booking-container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem var(--space-lg);
 }
 
-/* Background */
 .booking-background {
     background: linear-gradient(180deg, var(--purple_50) 0%, var(--white_a700) 70%);
     min-height: 100vh;
@@ -16,7 +14,6 @@
     z-index: -1;
 }
 
-/* Content Box */
 .booking-content {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 30px;
@@ -29,7 +26,6 @@
     animation: fadeIn 0.6s ease-out;
 }
 
-/* Title */
 .booking-title {
     color: var(--blue_800);
     font-size: 2.5rem;
@@ -49,14 +45,12 @@
     border-radius: var(--radius-full);
 }
 
-/* Bookings List */
 .bookings-list {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
 }
 
-/* Booking Item */
 .booking-item {
     background: white;
     border-radius: var(--radius-lg);
@@ -74,7 +68,6 @@
     box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.15);
 }
 
-/* Booking Info */
 .booking-info {
     flex: 1;
 }
@@ -98,7 +91,6 @@
     color: var(--blue_800);
 }
 
-/* No Bookings Message */
 .no-bookings {
     text-align: center;
     color: var(--gray_600);
@@ -139,7 +131,6 @@
     font-size: 0.8rem;
 }
 
-/* Back Button */
 .back-button {
     display: inline-flex;
     align-items: center;
@@ -169,7 +160,6 @@
     font-size: 0.9rem;
 }
 
-/* Success Message */
 .success-message {
     background: var(--green_50);
     color: var(--green_800);
@@ -197,7 +187,6 @@
     }
 }
 
-/* Error Message */
 .error-message {
     background: var(--red_50);
     color: var(--red_800);
@@ -214,7 +203,6 @@
     color: var(--red_500);
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
     .booking-container {
         padding: var(--space-lg);

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\User;
+use App\Models\Instructor;
 
 class RegisterController extends Controller
 {
@@ -22,7 +25,7 @@ class RegisterController extends Controller
                 'username' => 'required|string|max:255|regex:/^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9.]+$/|unique:users,username',
                 'email' => 'required|email|max:255|unique:users,email',
                 'password' => 'required|string|min:8|confirmed',
-                'role' => 'required|in:user,admin'
+                'role' => 'required|in:user,admin,instructor'
             ],
             [
                 'first_name.required' => 'The first name is required.',
@@ -51,7 +54,7 @@ class RegisterController extends Controller
             ]
         );
 
-        User::create(
+        $user = User::create(
             [
                 'first_name' => $validated['first_name'],
                 'last_name' => $validated['last_name'],
@@ -62,6 +65,20 @@ class RegisterController extends Controller
             ]
         );
 
-        return redirect()->route('landing')->with('success', 'You are now registered!');
+        Auth::login($user);
+
+        if ($validated['role'] === 'instructor') {
+            $instructor = Instructor::create([
+                'users_id' => $user->id,
+                'studios_id' => null,
+                'experience' => null,
+                'dance_expertise' => null,
+                'description' => null,
+            ]);
+
+            return redirect()->route('instructor.setup', ['id' => $instructor->id]);
+        }
+
+        return redirect()->route('landing');
     }
 }

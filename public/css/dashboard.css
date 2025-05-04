@@ -2,7 +2,6 @@ body{
     background: linear-gradient(180deg, var(--purple_50) 0%, var(--white_a700) 70%);
 }
 
-/* Main Layout */
 .dashboard-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -28,7 +27,6 @@ body{
     border-radius: var(--radius-full);
 }
 
-/* Classes Grid */
 .classes-grid {
     display: flex;
     flex-direction: column;
@@ -36,7 +34,6 @@ body{
     width: 100%;
 }
 
-/* Class Card */
 .class-card-admin {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
@@ -57,7 +54,6 @@ body{
     box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
 }
 
-/* Class Info */
 .class-name {
     color: var(--blue_800);
     font-size: 1.8rem;
@@ -90,7 +86,7 @@ body{
     position: relative;
     display: inline-block;
     width: 160px;
-    height: 45px; /* Increased height to match other buttons */
+    height: 45px;
     margin: 0 var(--space-sm);
 }
 
@@ -156,7 +152,6 @@ input:checked + .toggle-slider:after {
     margin-left: 0;
 }
 
-/* Hover effects for toggle */
 .toggle-switch:hover .toggle-slider {
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -167,7 +162,6 @@ input:checked + .toggle-slider:after {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Action Buttons */
 .class-actions {
     display: flex;
     gap: var(--space-md);
@@ -175,7 +169,6 @@ input:checked + .toggle-slider:after {
     margin-top: var(--space-md);
 }
 
-/* Common Button Styles */
 .action-button {
     background: linear-gradient(135deg, var(--blue_800), var(--gray_900));
     color: var(--white_a700);
@@ -203,23 +196,106 @@ input:checked + .toggle-slider:after {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Create Class Button */
 .create-class-button {
     background: linear-gradient(135deg, var(--blue_800), var(--gray_900));
     margin-bottom: var(--space-xl);
 }
 
-/* View Bookings Button */
 .view-bookings-button {
     background: linear-gradient(135deg, var(--blue_800), var(--gray_900));
 }
 
-/* Edit Button */
 .edit-class-button {
     background:linear-gradient(135deg, var(--blue_800), var(--gray_900)) ;
 }
 
-/* Responsive Design */
+.delete-class-button {
+    background:linear-gradient(135deg, var(--blue_800), var(--gray_900)) ;
+}
+
+.add-instructor-container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+    background: rgba(255, 255, 255, 0.95);
+    padding: var(--space-md);
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--purple_50);
+    transition: all 0.3s ease;
+}
+
+.add-instructor-container label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--blue_800);
+    margin-right: var(--space-md);
+}
+
+#instructor_id {
+    padding: var(--space-sm) var(--space-md);
+    border: 2px solid var(--blue_800);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    color: var(--gray_900);
+    transition: all 0.3s ease;
+    outline: none;
+    min-width: 200px;
+    cursor: pointer;
+}
+
+#instructor_id:hover, 
+#instructor_id:focus {
+    border-color: var(--purple_800);
+    background: white;
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(var(--purple_800_rgb), 0.1);
+}
+
+.add-instructor-button {
+    background: linear-gradient(135deg, var(--blue_800), var(--gray_900));
+    color: var(--white_a700);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    padding: var(--space-sm) var(--space-lg);
+    font-weight: 700;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.add-instructor-button:hover {
+    background: linear-gradient(135deg, var(--gray_900), var(--blue_800));
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.add-instructor-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .add-instructor-container {
+        flex-direction: column;
+        gap: var(--space-sm);
+        padding: var(--space-sm);
+    }
+
+    #instructor_id {
+        width: 100%;
+    }
+
+    .add-instructor-button {
+        width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     .dashboard-container {
         padding: var(--space-md);

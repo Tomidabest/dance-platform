@@ -49,6 +49,7 @@
                         </option>
                     @endforeach
                 </select>
+
                 @error('instructor_id')
                     <span class="form-error">{{ $message }}</span>
                 @enderror

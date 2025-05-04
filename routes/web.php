@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', [LeadPageController::class, 'index'])->name('landing');
 
@@ -39,6 +40,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/studios/store', [StudioController::class, 'store'])->name('studios.store');
     Route::get('/studios/{studio}/edit', [StudioController::class, 'edit'])->name('studios.edit');
     Route::put('/studios/{studio}', [StudioController::class, 'update'])->name('studios.update');
+    Route::delete('/studios/images/{id}', [StudioController::class, 'deleteImage'])->name('studios.deleteImage');
 });
 
 Route::get('/studios/{studio}', [StudioController::class, 'single'])->name('studios.single');
@@ -48,10 +50,15 @@ Route::post('/classes/{class}/book', [StudioController::class, 'book'])->name('c
 
 Route::get('/instructors/{id}', [InstructorController::class, 'show'])->name('instructors.show');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('user.dashboard');
+    Route::delete('/booking/{booking}/cancel', [DashboardController::class, 'cancelBooking'])->name('booking.cancel');
+});
+
 
 Route::group(['middleware' => 'admin'], function ()
 {
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
 
     Route::prefix('/class')->group(function () {
         
@@ -65,7 +72,7 @@ Route::group(['middleware' => 'admin'], function ()
 
         Route::delete('/{class}/delete', [ClassController::class, 'destroy'])->name('class.delete');
 
-        Route::post('/{class}/toggle', [ClassController::class, 'toggleStatus'])->name('class.toggle');
+        Route::patch('/{class}/toggle', [ClassController::class, 'toggleStatus'])->name('class.toggle');
 
         Route::post('/{class}/assign-instructor', [ClassController::class, 'assignInstructor'])->name('class.assignInstructor');
 
@@ -74,4 +81,16 @@ Route::group(['middleware' => 'admin'], function ()
         ->middleware(['auth']);
     });
 
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'view'])->name('profile.view');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/upload-image', [ProfileController::class, 'uploadImage'])->name('profile.uploadImage');
+
+    Route::get('/instructor/setup/{id}', [InstructorController::class, 'setup'])->name('instructor.setup');
+    Route::post('/instructor/setup/{id}', [InstructorController::class, 'storeSetup'])->name('instructor.storeSetup');
+    Route::get('/instructor/dashboard', [DashboardController::class, 'instructorDashboard'])->name('instructor.dashboard');
+    Route::post('/instructors/assign', [InstructorController::class, 'assignToStudio'])->name('instructors.assign');
 });

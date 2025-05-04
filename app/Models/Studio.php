@@ -46,13 +46,38 @@ class Studio extends Model
         return $this->images()->first()?->img_path ?? 'images/studios/placeholder.jpg';
     }
 
-    public function scopeNearby($query, $latitude, $longitude, $radius = 50)
+    public function isEmpty()
     {
-        return $query->selectRaw("*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) 
-            * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) 
-            * sin( radians( latitude ) ) ) ) AS distance", 
-            [$latitude, $longitude, $latitude])
-            ->having('distance', '<', $radius)
-            ->orderBy('distance', 'asc');
+        return empty($this->name) &&
+               empty($this->address) &&
+               empty($this->phone) &&
+               empty($this->email) &&
+               empty($this->description) &&
+               $this->classes()->count() === 0 &&
+               $this->instructors()->count() === 0 &&
+               $this->images()->count() === 0;
+    }
+
+    public function getFormattedAddressAttribute()
+    {
+        $parts = explode(', ', $this->address);
+        $relevantParts = [];
+        
+        if (!empty($parts[0])) {
+            $relevantParts[] = $parts[0];
+        }
+        
+        foreach ($parts as $part) {
+            if (str_contains($part, 'zh.k.') || 
+                str_contains($part, 'ul.') || 
+                str_contains($part, 'blvd.') || 
+                $part === $this->city) {
+                if (!in_array($part, $relevantParts)) {
+                    $relevantParts[] = $part;
+                }
+            }
+        }
+        
+        return implode(', ', $relevantParts);
     }
 }

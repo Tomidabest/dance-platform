@@ -23,7 +23,7 @@ class ClassController extends Controller
             'name' => 'required|string|max:255',
             'genre' => 'required|string|max:100',
             'description' => 'nullable|string|max:500',
-            'instructor_id' => 'nullable|exists:instructors,id',
+            'instructors_id' => 'nullable|exists:instructors,id',
             'availability' => 'required|integer|min:0',
             'time_start' => 'required|date_format:Y-m-d\TH:i',
             'time_ends' => 'required|date_format:Y-m-d\TH:i|after:time_start',
@@ -44,13 +44,13 @@ class ClassController extends Controller
             ]
         );
 
-        
-
-        return redirect()->route('admin.dashboard')->with('success', 'Class created successfully.');
+        return redirect()->route('admin.dashboard');
     }
 
     public function update(Request $request, Classes $class)
     {
+        
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'genre' => 'required|string|max:100',
@@ -70,14 +70,14 @@ class ClassController extends Controller
             'name' => $validated['name'],
             'genre' => $validated['genre'],
             'description' => $validated['description'],
-            'instructor_id' => $validated['instructor_id'],
+            'instructors_id' => $validated['instructor_id'],
             'availability' => $validated['availability'],
             'time_start' => $validated['time_start'],
             'time_ends' => $validated['time_ends'],
             'price' => $validated['price'],
         ]);
 
-        return redirect()->route('admin.dashboard')->with('success', 'Class updated successfully.');
+        return redirect()->route('admin.dashboard');
     }
 
 
@@ -100,18 +100,23 @@ class ClassController extends Controller
 
         $class->delete();
 
-        return redirect()->route('dashboard')->with('success', 'Class deleted successfully.');
+        return redirect()->route('admin.dashboard');
     }
 
     public function toggleStatus(Classes $class)
     {
         if ($class->studios_id !== auth()->user()->studio_id) {
-            abort(403, 'Unauthorized');
+            return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
         }
-
-        $class->update(['is_active' => !$class->is_active]);
-
-        return back()->with('success', 'Class status updated.');
+    
+        $class->is_active = !$class->is_active;
+        $class->save();
+    
+        return response()->json([
+            'success' => true,
+            'is_active' => $class->is_active,
+            'message' => 'Class status updated successfully.'
+        ]);
     }
 
     public function assignInstructor(Request $request, Classes $class)

@@ -3,7 +3,7 @@
 @section('title', 'Studios')
 
 @section('content')
-    <div class="all-studios-grid">
+    <div class="all-studios-grid" id="studios-container">
         @foreach ($studios as $studio)
             <div class="all-studios-item">
                 <a href="{{route('studios.single', $studio->id)}}" class="all-studios-link">
@@ -16,52 +16,64 @@
                     <h1 class="all-studios-name">
                         <a href="{{route('studios.single', $studio->id)}}">Studio {{$studio->name}}</a>
                     </h1>
-                    <h2 class="all-studios-location">Location: {{$studio->address}}</h2>
+                    <h2 class="all-studios-location">Location: {{$studio->formatted_address}}</h2>
                 </div>
             </div>
         @endforeach
     </div>
+
+    <div id="load-more" data-next-page="{{ $studios->nextPageUrl() }}"></div>
 @endsection
 
-
 <script>
-    // Плавно появяване при скролване
-const cards = document.querySelectorAll('.studio-card');
+document.addEventListener("DOMContentLoaded", function () {
+    let container = document.querySelector("#studios-container");
+    let loadMoreDiv = document.querySelector("#load-more");
+    let nextPageUrl = loadMoreDiv.dataset.nextPage;
+    let isLoading = false;
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+    function fetchStudios() {
+        if (!nextPageUrl || isLoading) return;
+
+        isLoading = true;
+
+        fetch(nextPageUrl)
+            .then(response => response.text())
+            .then(data => {
+                let tempDiv = document.createElement("div");
+                tempDiv.innerHTML = data;
+
+                let newStudios = tempDiv.querySelector("#studios-container").innerHTML;
+                container.insertAdjacentHTML("beforeend", newStudios);
+
+                let newNextPageDiv = tempDiv.querySelector("#load-more");
+                if (newNextPageDiv) {
+                    nextPageUrl = newNextPageDiv.dataset.nextPage;
+                } else {
+                    nextPageUrl = null;
+                    loadMoreDiv.remove();
+                }
+
+                isLoading = false;
+            })
+            .catch(error => {
+                console.error("Error loading more studios:", error);
+                isLoading = false;
+            });
+    }
+
+    function handleScroll() {
+        if (isLoading || !nextPageUrl) return;
+
+        let scrollPosition = window.innerHeight + window.scrollY;
+        let documentHeight = document.documentElement.offsetHeight;
+
+        if (scrollPosition >= documentHeight - 200) {
+            fetchStudios();
         }
-    });
-}, { threshold: 0.1 });
+    }
 
-cards.forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'all 0.6s ease';
-    observer.observe(card);
+    window.addEventListener("scroll", handleScroll);
 });
-
-// Паралакс ефект за изображенията
-cards.forEach(card => {
-    const image = card.querySelector('.studio-image');
-    
-    card.addEventListener('mousemove', (e) => {
-        const { left, top, width, height } = card.getBoundingClientRect();
-        const x = (e.clientX - left) / width - 0.5;
-        const y = (e.clientY - top) / height - 0.5;
-        
-        image.style.transform = `
-            scale(1.1)
-            rotateY(${x * 10}deg)
-            rotateX(${y * -10}deg)
-        `;
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        image.style.transform = 'scale(1) rotateY(0) rotateX(0)';
-    });
-    });
 </script>
+

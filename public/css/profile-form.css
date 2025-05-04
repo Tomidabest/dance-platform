@@ -1,0 +1,101 @@
+.profile-edit-background {
+    background: linear-gradient(180deg, var(--purple_50) 0%, var(--white_a700) 70%);
+    min-height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.profile-edit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: var(--space-lg);
+}
+
+.profile-edit-box {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: var(--space-xl);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1), 
+                0 5px 15px -3px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: var(--space-md);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: var(--space-xs);
+    color: var(--blue_800);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.form-input {
+    width: 100%;
+    max-width: 400px;
+    padding: var(--space-sm);
+    border: 2px solid var(--blue_800);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    text-align: center;
+}
+
+.form-input:focus {
+    border-color: var(--purple_800);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(var(--purple_800_rgb), 0.1);
+}
+
+.submit-button {
+    background: linear-gradient(135deg, var(--blue_800), var(--gray_900));
+    color: var(--white_a700);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: large;
+    padding: var(--space-sm) var(--space-lg);
+    font-weight: 700;
+    margin-top: var(--space-md);
+    text-align: center;
+}
+
+.submit-button:hover {
+    background: linear-gradient(135deg, var(--gray_900), var(--blue_800));
+    transform: translateY(-3px);
+}
+
+.back-button {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--gray_200);
+    color: var(--white_a700);
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: var(--space-md);
+}
+
+.back-button:hover {
+    background: var(--gray_300);
+    transform: scale(1.02);
+}

@@ -3,33 +3,33 @@
         <div class="footer-section">
             <h2 class="footer-logo">DanceIgnite</h2>
         </div>
-        
-        <div class="footer-section">
-            <h3>About</h3>
-            <ul>
-                <li><a href="/our-story">Our Story</a></li>
-                <li><a href="/careers">Careers</a></li>
-                <li><a href="/our-team">Our Team</a></li>
-                <li><a href="/resources">Resources</a></li>
-            </ul>
-        </div>
 
         <div class="footer-section">
-            <h3>Support</h3>
+            <h3>More</h3>
             <ul>
-                <li><a href="/faq">FAQ</a></li>
-                <li><a href="/contact">Contact Us</a></li>
-                <li><a href="/help">Help Center</a></li>
-                <li><a href="/terms">Terms of Service</a></li>
+                <li><a href="/studios">Find a Studio</a></li>
+
+                @auth
+                    @if(auth()->user()->role === 'admin')
+                        <li><a href="/admin/dashboard">Admin Dashboard</a></li>
+                    @elseif(auth()->user()->role === 'instructor')
+                        <li><a href="{{ route('instructor.dashboard') }}">Instructor Dashboard</a></li>
+                    @else
+                        <li><a href="{{ route('user.dashboard') }}">My Dashboard</a></li>
+                    @endif
+                @else
+                    <li><a href="/register">Sign up</a></li>
+                    <li><a href="/login">Log in</a></li>
+                @endauth
             </ul>
         </div>
 
         <div class="footer-section">
             <h3>Our Social</h3>
             <ul class="social-links">
-                <li><a href="#" class="social-link instagram">Instagram</a></li>
-                <li><a href="#" class="social-link facebook">Facebook</a></li>
-                <li><a href="#" class="social-link twitter">Twitter (x)</a></li>
+                <li><a href="https://x.com/Losbaeth" class="social-link twitter">X (Twitter)</a></li>
+                <li><a href="https://www.instagram.com/v_rusew/" class="social-link instagram">Instagram</a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=100008760581235" class="social-link facebook">Facebook</a></li>
             </ul>
         </div>
     </div>
