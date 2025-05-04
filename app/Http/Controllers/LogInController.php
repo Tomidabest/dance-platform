@@ -33,19 +33,17 @@ class LogInController extends Controller
             $token = $user->createToken('auth_token')->plainTextToken;
 
             $cookieName = 'personal_token_' . $user->id;
-            Cookie::queue($cookieName , $token, 60 * 24);
+            Cookie::queue($cookieName, $token, 60 * 24 * 30);
 
-            return response()->json(['message' => 'Log in succsessfully!']);
+            return redirect()->route('landing');
         }
 
-        return response()->json(['message' => 'Incorrect email or password'], 401);
+        return back()->withInput()->withErrors(['email' => 'Incorrect email or password']);
     }
 
     public function logout(Request $request)
     {
         $user = Auth::user();
-
-        $user->tokens()->delete();
 
         Auth::logout();
         $request->session()->invalidate();
@@ -53,6 +51,6 @@ class LogInController extends Controller
         $cookieName = 'personal_token_' . $user->id;
         Cookie::queue(Cookie::forget($cookieName));
 
-        return response()->json(['message' => 'Loged out succsessfully!']);
+        return redirect()->route('landing');
     }
 }

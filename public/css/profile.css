@@ -1,4 +1,4 @@
-.instructor-page {
+.profile-page {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -16,15 +16,15 @@
     z-index: -1;
 }
 
-.instructor-hero {
+.profile-hero {
     width: 100%;
     background: transparent;
     padding: var(--space-xl) 0;
     margin-bottom: var(--space-xl);
 }
 
-.instructor-profile {
-    max-width: 1400px;
+.profile-container {
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--space-lg);
     display: flex;
@@ -33,7 +33,7 @@
 }
 
 .profile-image-container {
-    flex: 0 0 500px;
+    flex: 0 0 300px;
     border-radius: 30px;
     overflow: hidden;
     box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1), 
@@ -53,7 +53,7 @@
     transform: scale(1.02);
 }
 
-.instructor-info {
+.profile-info {
     flex: 1;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 30px;
@@ -64,7 +64,7 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.instructor-info h1 {
+.profile-info h1 {
     color: var(--blue_800);
     font-size: 2.5rem;
     margin-bottom: var(--space-lg);
@@ -72,7 +72,7 @@
     padding-bottom: var(--space-sm);
 }
 
-.instructor-info h1::after {
+.profile-info h1::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -83,21 +83,80 @@
     border-radius: var(--radius-full);
 }
 
-.instructor-info h3 {
+.profile-info h3 {
     color: var(--blue_800);
     font-size: 1.8rem;
     margin: var(--space-xl) 0 var(--space-md);
 }
 
-.instructor-info p {
+.profile-info p {
     color: var(--gray_800);
     font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: var(--space-md);
 }
 
+.no-data-message {
+    color: var(--gray_600);
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+.edit-profile-button {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-md);
+    background: linear-gradient(135deg, var(--blue_800), var(--gray_900));
+    color: var(--white_a700);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease-in-out;
+    font-size: large;
+    font-weight: 700;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.edit-profile-button:hover {
+    background: linear-gradient(135deg, var(--gray_900), var(--blue_800));
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
 .fade-in {
     animation: fadeIn 0.6s ease-out forwards;
+}
+
+.upload-button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.upload-button:hover {
+    background-color: #357ab7;
+}
+
+.hidden {
+    display: none;
+}
+
+.save-button {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.save-button:hover {
+    background-color: #125abc;
 }
 
 @keyframes fadeIn {
@@ -112,7 +171,7 @@
 }
 
 @media (max-width: 1024px) {
-    .instructor-profile {
+    .profile-container {
         flex-direction: column;
         align-items: center;
     }
@@ -120,35 +179,20 @@
     .profile-image-container {
         flex: 0 0 auto;
         width: 100%;
-        max-width: 500px;
+        max-width: 300px;
     }
 
-    .instructor-info {
+    .profile-info {
         width: 100%;
     }
 }
 
 @media (max-width: 768px) {
-    .instructor-info h1 {
+    .profile-info h1 {
         font-size: 2rem;
     }
 
-    .instructor-info h3 {
+    .profile-info h3 {
         font-size: 1.6rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .instructor-hero {
-        padding: var(--space-md) 0;
-    }
-
-    .instructor-profile {
-        padding: 0 var(--space-md);
-    }
-
-    .profile-image-container,
-    .instructor-info {
-        padding: var(--space-md);
     }
 }

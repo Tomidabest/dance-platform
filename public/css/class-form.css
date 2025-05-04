@@ -1,4 +1,3 @@
-/* Page Background */
 .class-form-background {
     background: linear-gradient(180deg, var(--purple_50) 0%, var(--white_a700) 70%);
     min-height: 100vh;
@@ -9,22 +8,19 @@
     z-index: -1;
 }
 
-/* Centering Container */
 .class-form-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: var(--space-lg);
+    padding: 20px;
 }
 
-/* Form Box */
 .class-form-box {
     background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    padding: var(--space-xl);
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1), 
-                0 5px 15px -3px rgba(0, 0, 0, 0.05);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     width: 100%;
@@ -33,56 +29,34 @@
     animation: fadeIn 0.6s ease-out;
 }
 
-/* Form Title */
-.class-form-box h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--blue_800);
-    margin-bottom: var(--space-md);
-    position: relative;
-    padding-bottom: var(--space-sm);
-}
-
-.class-form-box h1::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--blue_800), var(--purple_50));
-    border-radius: var(--radius-full);
-}
-
-/* Form Container */
 .class-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
+    display: grid;
+    gap: 20px;
     width: 100%;
 }
 
-/* Form Groups */
 .form-group {
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-/* Labels */
 .form-label {
     display: block;
     margin-bottom: var(--space-xs);
     color: var(--blue_800);
     font-weight: 600;
     font-size: 1rem;
+    text-align: center;
 }
 
-/* Input Fields */
 .form-input,
 .form-textarea,
 .form-select {
     width: 100%;
-    padding: var(--space-sm) var(--space-md);
+    max-width: 400px;
+    padding: var(--space-sm);
     border: 2px solid var(--blue_800);
     border-radius: var(--radius-md);
     background: rgba(255, 255, 255, 0.6);
@@ -90,10 +64,32 @@
     color: var(--gray_900);
     transition: all 0.3s ease;
     outline: none;
+    text-align: center;
+}
+
+.form-input, .auth-textarea {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    outline: none;
 }
 
 .form-textarea {
-    min-height: 100px;
+    width: 100%;
+    max-width: 400px;
+    min-height: 120px;
+    padding: var(--space-sm);
+    border: 2px solid var(--blue_800);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    color: var(--gray_900);
+    text-align: center;
     resize: vertical;
 }
 
@@ -112,7 +108,6 @@
     border-color: var(--purple_800);
 }
 
-/* Select Styling */
 .form-select {
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -122,7 +117,6 @@
     padding-right: 2.5rem;
 }
 
-/* Submit Button */
 .submit-button {
     background: linear-gradient(135deg, var(--blue_800), var(--gray_900));
     color: var(--white_a700);
@@ -138,6 +132,8 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     padding: var(--space-sm) var(--space-lg);
     font-weight: 700;
+    margin-top: var(--space-md);
+    text-align: center;
 }
 
 .submit-button:hover {
@@ -147,7 +143,6 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Back Button */
 .back-button {
     display: inline-block;
     padding: var(--space-sm) var(--space-md);
@@ -156,6 +151,7 @@
     text-decoration: none;
     border-radius: var(--radius-md);
     transition: all 0.3s ease;
+    text-align: center;
     margin-top: var(--space-md);
 }
 
@@ -164,14 +160,12 @@
     transform: scale(1.02);
 }
 
-/* Error Messages */
 .form-error {
     color: var(--red_600);
     font-size: 0.9rem;
     margin-top: var(--space-xs);
 }
 
-/* Animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -183,7 +177,6 @@
     }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .class-form-box {
         padding: var(--space-lg);

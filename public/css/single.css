@@ -1,14 +1,11 @@
-/* Main Layout */
 .single-studio {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* Remove any background-color that might be set */
     margin: 0;
     padding: 0;
 }
 
-/* Add this new class to your body or main container */
 .page-background {
     background: linear-gradient(180deg, var(--purple_50) 0%, var(--white_a700) 70%);
     min-height: 100vh;
@@ -19,7 +16,6 @@
     z-index: -1;
 }
 
-/* Hero Section */
 .hero-wrapper {
     width: 100%;
     background: transparent;
@@ -35,17 +31,15 @@
     gap: var(--space-xl);
 }
 
-/* Content Container */
 .content-container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 var(--space-lg);
 }
 
-/* Content Boxes */
 .content-box {
     background: rgba(255, 255, 255, 0.95);
-    border-radius: 30px; /* Matching studios cards */
+    border-radius: 30px;
     padding: var(--space-xl);
     box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1), 
                 0 5px 15px -3px rgba(0, 0, 0, 0.05);
@@ -61,7 +55,6 @@
                 0 10px 20px -5px rgba(0, 0, 0, 0.08);
 }
 
-/* Slider Section */
 .slider {
     flex: 1;
     max-width: 650px;
@@ -111,7 +104,6 @@
 .slider-button.left { left: 20px; }
 .slider-button.right { right: 20px; }
 
-/* Studio Quick Info */
 .studio-quick-info {
     flex: 1;
     padding: var(--space-xl);
@@ -119,11 +111,8 @@
     flex-direction: column;
     justify-content: center;
     gap: var(--space-md);
-    
     border-radius: var(--radius-xl);
-    
     backdrop-filter: blur(8px);
-    
 }
 
 .studio-quick-info h1 {
@@ -155,7 +144,6 @@
     color: var(--blue_900);
 }
 
-/* Instructors Grid */
 .instructors-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -192,7 +180,6 @@
     margin-bottom: var(--space-xs);
 }
 
-/* Classes Section */
 .classes-section {
     margin-top: var(--space-xl);
 }
@@ -207,14 +194,14 @@
     position: relative;
     overflow: hidden;
     padding: 0 var(--space-md);
-    max-width: calc(300px * 3 + var(--space-md) * 2); /* Show exactly 3 cards */
+    max-width: calc(300px * 3 + var(--space-md) * 2);
     margin: 0 auto;
 }
 
 .classes-wrapper.many-classes {
     display: flex;
     gap: var(--space-md);
-    overflow-x: hidden; /* Changed from auto to hidden */
+    overflow-x: hidden;
     scroll-behavior: smooth;
     padding: var(--space-md) 0;
     scrollbar-width: none;
@@ -290,7 +277,7 @@
     width: 100%;
     font-size: 1.1rem;
     font-weight: 500;
-    text-decoration: none; /* Removes underline */
+    text-decoration: none;
 }
 
 .book-button:hover {
@@ -299,18 +286,15 @@
     box-shadow: 0 4px 12px rgba(31, 38, 135, 0.2);
 }
 
-/* Hide slider buttons by default */
 .slider-button.classes-prev,
 .slider-button.classes-next {
     display: none;
 }
 
-/* Only show slider buttons when many-classes class is present */
 .classes-wrapper.many-classes ~ .slider-button {
     display: block;
 }
 
-/* Section Headers */
 .content-box h2 {
     color: var(--blue_800);
     font-size: 1.8rem;
@@ -330,7 +314,6 @@
     border-radius: var(--radius-full);
 }
 
-/* Animation classes */
 @keyframes fadeIn {
     from { 
         opacity: 0; 
@@ -346,7 +329,6 @@
     animation: fadeIn 0.6s ease-out forwards;
 }
 
-/* Custom Scrollbar */
 .classes-wrapper::-webkit-scrollbar {
     height: 8px;
 }
@@ -361,7 +343,6 @@
     border-radius: var(--radius-full);
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
     .hero-section {
         flex-direction: column;

@@ -3,16 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Studio;
 use App\Models\Classes;
 use App\Models\Bookings;
+use App\Models\Image;
 use Carbon\Carbon;
 
 class StudioController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $studios = Studio::all();
+        $studios = Studio::orderBy('created_at', 'desc')->paginate(6);
+
+        if ($request->ajax()) {
+            return view('studios.all-studios', compact('studios'))->render();
+        }
+
         return view('studios.all-studios', compact('studios'));
     }
 
@@ -52,10 +59,10 @@ class StudioController extends Controller
             $class->availability -= 1;
             $class->save();
 
-            return redirect()->route('landing')->with('success', 'Booking confirmed!');
+            return redirect()->route('user.dashboard');
         }
         else{
-            return redirect()->route('landing')->with('error', 'No Booking available!');
+            return redirect()->route('landing');
         }
     }
 
@@ -69,8 +76,8 @@ class StudioController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
             'description' => 'nullable|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
@@ -80,7 +87,7 @@ class StudioController extends Controller
         $studio = Studio::create([
             'name' => $validated['name'],
             'address' => $validated['address'],
-            'description' => $validated['description'],
+            'description' => $validated['description'] ?? '',
             'phone' => $validated['phone'],
             'email' => $validated['email'],
             'latitude' => $validated['latitude'],
@@ -105,17 +112,55 @@ class StudioController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
             'description' => 'nullable|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'city' => 'required|string|max:100',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
+        if (!isset($validated['description'])) {
+            $validated['description'] = '';
+        }
 
         $studio->update($validated);
 
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '_' . $image->getClientOriginalName();
+                $path = $image->storeAs('images/studios', $filename, 'public');
+               
+                Image::create([
+                    'studios_id' => $studio->id,
+                    'img_path' => $path
+                ]);
+            }
+        }
+
         return redirect()->route('admin.dashboard');
+    }
+
+    public function deleteImage($imageId)
+    {
+        $image = Image::find($imageId);
+
+        if (!$image) {
+            return response()->json(['error' => 'Image not found'], 404);
+        }
+
+        if (auth()->user()->studio_id !== $image->studios_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        if (Storage::disk('public')->exists($image->img_path)) {
+            Storage::disk('public')->delete($image->img_path);
+        }
+
+        $image->delete();
+
+        return response()->json(['success' => true]);
     }
 
     private function getRelatedStudios(Studio $studio)

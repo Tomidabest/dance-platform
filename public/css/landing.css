@@ -33,7 +33,6 @@ body {
     margin-top: 80px;
 }
 
-/* Featured Dance Section */
 .featured-dance__content {
     position: absolute;
     right: 8%;
@@ -132,11 +131,10 @@ body {
 }
 
 .featured-dance__button:hover::before {
-    width: 400px; /* По-голям ефект при hover */
+    width: 400px;
     height: 400px;
 }
 
-/* Search and Register Section */
 .search-register {
     margin-top: 0;
     gap: 70px;
@@ -173,7 +171,7 @@ body {
 }
 
 .search-register__form:hover {
-    border-color: var(--gray_800); /* Changes to dark purple */ /* Slight background change on hover */
+    border-color: var(--gray_800);
     box-shadow: 0 5px 10px var(--gray_900);
 }
 
@@ -227,7 +225,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Register Button */
 .search-register__register-button {
     align-self: center;
     padding: 0.7rem 2rem;
@@ -358,7 +355,6 @@ body {
     border-radius: 2px;
 }
 
-/* Studios grid setup */
 .featured-studios__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -370,7 +366,6 @@ body {
     align-items: stretch;
 }
 
-/* Each studio card */
 .studio-card {
     background-color: var(--purple_50);
     border: 2px solid var(--gray_800);
@@ -385,10 +380,6 @@ body {
     height: 100%;
 }
 
-/* Lower even-numbered studio cards */
-
-
-/* Studio images base styles */
 .studio-card__image {
     width: 100%;
     object-fit: cover;
@@ -426,7 +417,6 @@ body {
     color: var(--gray_800);
 }
 
-/* Hover effects */
 .studio-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
@@ -437,7 +427,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Animation */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -447,7 +436,6 @@ body {
     animation: fadeIn 0.6s ease-out forwards;
 }
 
-/* Responsive adjustments */
 @media only screen and (max-width: 768px) {
     .featured-studios__grid {
         grid-template-columns: repeat(2, 1fr);

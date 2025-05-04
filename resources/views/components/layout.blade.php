@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('css/class-form.css') }}">
     <link rel="stylesheet" href="{{ asset('css/booking.css') }}">
     <link rel="stylesheet" href="{{ asset('css/studio-form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profile-form.css') }}">
 </head>
 <body>
     @include ('components.header')

@@ -25,7 +25,7 @@
                 <h1>{{ $studio->name }}</h1>
                 <div class="quick-info-item">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>{{ $studio->address }}</span>
+                    <span>{{ $studio->formatted_address }}</span>
                 </div>
                 <div class="quick-info-item">
                     <i class="fas fa-phone"></i>
@@ -42,35 +42,43 @@
     <div class="content-container">
         <div class="content-box fade-in">
             <h2>About the Studio</h2>
-            <p>{{ $studio->description }}</p>
+            <p>{{ $studio->description ?: 'No description available.' }}</p>
         </div>
         
         <div class="content-box fade-in">
             <h2>Our Instructors</h2>
-            <div class="instructors-grid">
-                @foreach ($instructors as $instructor)
-                    <a href="{{ route('instructors.show', $instructor->id) }}" class="instructor-card">
-                        @if($instructor->profile_image)
-                            <div class="instructor-image">
-                                <img src="{{ asset('storage/' . $instructor->profile_image) }}" 
-                                     alt="{{ $instructor->user->first_name }} {{ $instructor->user->last_name }}">
-                            </div>
-                        @endif
-                        <h3>{{ $instructor->user->first_name }} {{ $instructor->user->last_name }}</h3>
-                        <p><strong>Experience:</strong> {{ $instructor->experience }} years</p>
-                        <p><strong>Expertise:</strong> {{ $instructor->dance_expertise }}</p>
-                    </a>
-                @endforeach
-            </div>
+            @if ($instructors->isNotEmpty())
+                <div class="instructors-grid">
+                    @foreach ($instructors as $instructor)
+                        <a href="{{ route('instructors.show', $instructor->id) }}" class="instructor-card">
+                            @if($instructor->profile_image)
+                                <div class="instructor-image">
+                                    <img src="{{ asset('storage/' . $instructor->profile_image) }}" 
+                                         alt="{{ $instructor->user->first_name }} {{ $instructor->user->last_name }}">
+                                </div>
+                            @endif
+                            <h3>{{ $instructor->user->first_name }} {{ $instructor->user->last_name }}</h3>
+                            <p><strong>Experience:</strong> {{ $instructor->experience }} years</p>
+                            <p><strong>Expertise:</strong> {{ $instructor->dance_expertise }}</p>
+                        </a>
+                    @endforeach
+                </div>
+            @else
+                <p class="no-data-message">No instructors available.</p>
+            @endif
         </div>
 
-        <!-- Classes Section -->
+        @php
+            $userBookings = auth()->check() ? auth()->user()->bookings->pluck('classes_id')->toArray() : [];
+            $availableClasses = $classes->whereNotIn('id', $userBookings)->where('is_active', true);
+        @endphp
+
         <div class="content-box fade-in">
             <h2>Available Classes</h2>
-            <div class="classes-slider">
-                <div class="classes-wrapper {{ count($classes->where('is_active', true)) > 3 ? 'many-classes' : '' }}">
-                    @foreach ($classes as $class)
-                        @if($class->is_active)  {{-- Проверяваме дали класът е активен --}}
+            @if($availableClasses->isNotEmpty())
+                <div class="classes-slider">
+                    <div class="classes-wrapper {{ count($availableClasses) > 3 ? 'many-classes' : '' }}">
+                        @foreach ($availableClasses as $class)
                             <div class="class-card">
                                 <h3>{{ $class->name }}</h3>
                                 <p class="class-genre">{{ $class->genre }}</p>
@@ -97,8 +105,9 @@
                                         </p>
                                     @endif
                                 </div>
+                                
                                 @auth
-                                    @if($class->availability > 0)
+                                    @if(auth()->user()->role === 'user' && $class->availability > 0)
                                         <form action="{{ route('class.book', $class->id) }}" method="POST">
                                             @csrf
                                             <button type="submit" class="book-button">
@@ -114,10 +123,12 @@
                                     </a>
                                 @endauth
                             </div>
-                        @endif
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @else
+                <p class="no-data-message">No available classes.</p>
+            @endif
         </div>
 
         @if($relatedStudios->isNotEmpty())
@@ -338,7 +349,7 @@
     classesSlider.init();
     
     const studiosSlider = Object.create(classesSlider);
-    studiosSlider.wrapper = document.querySelectorAll('.classes-wrapper')[1]; // Get the second wrapper
+    studiosSlider.wrapper = document.querySelectorAll('.classes-wrapper')[1];
     studiosSlider.cards = studiosSlider.wrapper ? studiosSlider.wrapper.querySelectorAll('.class-card') : [];
     studiosSlider.init();
     

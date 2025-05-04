@@ -42,8 +42,6 @@ body {
    padding-top: 0;
 }
 
-/* Navbar Styling */
-
 .site-header {
    height: 80px;
     margin: 0;
@@ -73,7 +71,6 @@ body {
    align-items: center;
 }
 
-/* Animated Logo */
 .nav-logo {
    font-size: 30px;
    font-weight: 800;
